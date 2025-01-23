@@ -13,34 +13,39 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### tests
-
-```sh
-[bundle exec] fastlane tests
-```
-
-Run all unit tests
-
-### update_licenses
-
-```sh
-[bundle exec] fastlane update_licenses
-```
-
-Updates libraries licenses
-
-----
-
-
 ## iOS
 
-### ios screenshots
+### ios get_current_tag
 
 ```sh
-[bundle exec] fastlane ios screenshots
+[bundle exec] fastlane ios get_current_tag
 ```
 
-Generate new localized screenshots
+Get current tag
+
+### ios get_commits_count
+
+```sh
+[bundle exec] fastlane ios get_commits_count
+```
+
+Get commit counts
+
+### ios get_current_build_version
+
+```sh
+[bundle exec] fastlane ios get_current_build_version
+```
+
+Get generated build version
+
+### ios get_current_build_number
+
+```sh
+[bundle exec] fastlane ios get_current_build_number
+```
+
+Get generated build number
 
 ----
 
