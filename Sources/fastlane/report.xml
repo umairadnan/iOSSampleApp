@@ -5,37 +5,37 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Switch to get_commits_count lane" time="0.000516755">
+      <testcase classname="fastlane.lanes" name="0: Switch to get_commits_count lane" time="0.001133196">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: Switch to get_current_tag lane" time="0.000270961">
+      <testcase classname="fastlane.lanes" name="1: Switch to get_current_tag lane" time="0.000281988">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: git tag --sort=-creatordate | head -n 1" time="0.012861457">
+      <testcase classname="fastlane.lanes" name="2: git tag --sort=-creatordate | head -n 1" time="0.007806263">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: last_git_commit" time="0.020295">
+      <testcase classname="fastlane.lanes" name="3: last_git_commit" time="0.015096724">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: git log --oneline v2.1..214cd72" time="0.002420772">
+      <testcase classname="fastlane.lanes" name="4: git log --oneline v2.1..136d5a5" time="0.002805552">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: Switch to get_current_tag lane" time="0.000201811">
+      <testcase classname="fastlane.lanes" name="5: Switch to get_current_tag lane" time="0.00019603">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: git tag --sort=-creatordate | head -n 1" time="0.003503207">
+      <testcase classname="fastlane.lanes" name="6: git tag --sort=-creatordate | head -n 1" time="0.003727949">
         
       </testcase>
     
