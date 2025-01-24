@@ -36,16 +36,21 @@ desc "Get generated build version"
 lane :get_current_build_version do |options|
   total_commit = get_commits_count(options).to_i  # Ensure total_commit is an integer
   current_tag = get_current_tag.strip
-  major_version = "2"
-  minor_version = "2"
 
-  # Automatically increment minor version with each commit (or any other logic you prefer)
-  minor_version = (minor_version.to_i + total_commit).to_s  # Add total_commit to minor_version after converting to integer
+  # Extract major and minor version from the current tag (assuming format vX.Y)
+  version_parts = current_tag.sub('v', '').split('.')
+  major_version = version_parts[0]
+  minor_version = version_parts[1]
 
-  current_tag = "#{major_version}.#{minor_version}.#{total_commit}"
+  # Increment the patch version based on the total commits since the last tag
+  patch_version = total_commit
+
+  # Set the new version in the format Major.Minor.Patch
+  current_tag = "#{major_version}.#{minor_version}.#{patch_version}"
   puts current_tag
   current_tag
 end
+
 
 
 
