@@ -13,36 +13,42 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-## iOS
-
-### ios get_current_tag
+### get_current_tag
 
 ```sh
-[bundle exec] fastlane ios get_current_tag
+[bundle exec] fastlane get_current_tag
 ```
 
 Get current tag
 
-### ios get_commits_count
+### get_commits_count
 
 ```sh
-[bundle exec] fastlane ios get_commits_count
+[bundle exec] fastlane get_commits_count
 ```
 
 Get commit counts
 
-### ios get_current_build_version
+### generate_new_version
 
 ```sh
-[bundle exec] fastlane ios get_current_build_version
+[bundle exec] fastlane generate_new_version
 ```
 
-Get generated build version
+Generate new version number
 
-### ios get_current_build_number
+### update_version
 
 ```sh
-[bundle exec] fastlane ios get_current_build_number
+[bundle exec] fastlane update_version
+```
+
+Update version number
+
+### get_current_build_number
+
+```sh
+[bundle exec] fastlane get_current_build_number
 ```
 
 Get generated build number
