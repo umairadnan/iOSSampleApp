@@ -29,21 +29,13 @@ Get current tag
 
 Get commit counts
 
-### generate_new_version
+### get_current_build_version
 
 ```sh
-[bundle exec] fastlane generate_new_version
+[bundle exec] fastlane get_current_build_version
 ```
 
-Generate new version number
-
-### update_version
-
-```sh
-[bundle exec] fastlane update_version
-```
-
-Update version number
+Get generated build version
 
 ### get_current_build_number
 

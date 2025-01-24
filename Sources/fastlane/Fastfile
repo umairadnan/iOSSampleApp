@@ -15,11 +15,8 @@
 
 desc "Get current tag"
 lane :get_current_tag do
-  tags = sh('git tag --sort=-creatordate | head -n 1') # Get the latest tag
-  if tags.strip.empty?
-    UI.user_error!("No git tags found! Please create a tag to start versioning.")
-  end
-  tags.strip
+  tags = sh('git tag --sort=-creatordate | head -n 1')
+  tags
 end
 
 desc "Get commit counts"
@@ -29,38 +26,54 @@ lane :get_commits_count do |options|
   if options[:from_env]
     current_commit = ENV['SEMAPHORE_GIT_SHA']
   end
-  git_log = sh("git log --oneline #{current_tag.strip}..#{current_commit.strip}")
+  git_log = sh('git log --oneline ' + current_tag.strip + '..' + current_commit.strip)
   count = git_log.lines.count.to_s
-  puts "Number of commits since the last tag: #{count}"
+  puts count
   count
 end
 
-desc "Generate new version number"
-lane :generate_new_version do
+desc "Get generated build version"
+lane :get_current_build_version do |options|
+  total_commit = get_commits_count(options).to_i  # Ensure total_commit is an integer
   current_tag = get_current_tag.strip
-  total_commit_count = get_commits_count({}).to_i
+  major_version = "2"
+  minor_version = "2"
 
-  # Split the current version from the tag into <major>.<minor>
-  major, minor = current_tag.sub('v', '').split('.').map(&:to_i)
+  # Automatically increment minor version with each commit (or any other logic you prefer)
+  minor_version = (minor_version.to_i + total_commit).to_s  # Add total_commit to minor_version after converting to integer
 
-  # Increment the minor version and add the patch (commit count)
-  new_version = "#{major}.#{minor + 1}.#{total_commit_count}"
-  puts "Generated new version: #{new_version}"
-  new_version
+  current_tag = "#{major_version}.#{minor_version}.#{total_commit}"
+  puts current_tag
+  current_tag
 end
 
-desc "Update version number"
-lane :update_version do
-  new_version = generate_new_version
-  # Update version in your project files (e.g., Info.plist or Gradle)
-  increment_version_number(version_number: new_version)
-  puts "Version updated to #{new_version}"
-end
+
 
 desc "Get generated build number"
 lane :get_current_build_number do |options|
   sha_hex = last_git_commit[:abbreviated_commit_hash]
-  build_number = sha_hex.to_i(16) # Convert commit hash to integer as base build number
+  build_number = sha_hex.to_i(16)  # Convert commit hash to integer as base build number
+  if options[:build_version]
+    previous_number = latest_testflight_build_number(version: options[:build_version]).to_s
+    puts "Previous build number: #{previous_number}"
+    # Check if previous_number is a valid number
+    if previous_number.match?(/\d+/)
+      previous_number = previous_number.to_f
+      # If the current build number matches the previous build number, increment it
+      if previous_number == build_number.to_f
+        build_number = build_number + 0.1
+      # If the previous number includes a decimal, increment the second part
+      elsif previous_number.to_s.include?(".")
+        parts = previous_number.to_s.split(".").map(&:to_i)
+        if parts[0] == build_number
+          build_number = build_number + ((parts[1] + 1) / 10.0)
+        end
+      end
+    else
+      # Handle case where the previous number isn't a valid number
+      puts "Invalid previous build number. Using generated build number."
+    end
+  end
   puts "Generated build number: #{build_number}"
   build_number
 end
